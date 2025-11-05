@@ -1,31 +1,22 @@
 package net.mendex.discord.commands;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.components.Component;
-import net.dv8tion.jda.api.components.MessageTopLevelComponent;
 import net.dv8tion.jda.api.components.attachmentupload.AttachmentUpload;
 import net.dv8tion.jda.api.components.container.Container;
-import net.dv8tion.jda.api.components.container.ContainerChildComponent;
 import net.dv8tion.jda.api.components.label.Label;
 import net.dv8tion.jda.api.components.mediagallery.MediaGallery;
 import net.dv8tion.jda.api.components.mediagallery.MediaGalleryItem;
-import net.dv8tion.jda.api.components.section.Section;
-import net.dv8tion.jda.api.components.section.SectionAccessoryComponent;
 import net.dv8tion.jda.api.components.textdisplay.TextDisplay;
 import net.dv8tion.jda.api.components.textinput.TextInput;
 import net.dv8tion.jda.api.components.textinput.TextInputStyle;
-import net.dv8tion.jda.api.components.thumbnail.Thumbnail;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.modals.Modal;
-import net.dv8tion.jda.api.utils.FileUpload;
 import net.mendex.discord.commands.utils.CommandInterface;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModalCommand extends ListenerAdapter implements CommandInterface {
     @Override
@@ -58,10 +49,9 @@ public class ModalCommand extends ListenerAdapter implements CommandInterface {
 
         String description = event.getValue("description").getAsString();
         List<Message.Attachment> attachments = event.getValue("files").getAsAttachmentList();
-        List<MediaGalleryItem> gallery = new ArrayList<>();
-        for (Message.Attachment attach : attachments) {
-            gallery.add(MediaGalleryItem.fromUrl(attach.getUrl()));
-        }
+        List<MediaGalleryItem> gallery = attachments.stream()
+                .map(attach -> MediaGalleryItem.fromUrl(attach.getUrl()))
+                .collect(Collectors.toList());
 
         event.replyComponents(
                 Container.of(
