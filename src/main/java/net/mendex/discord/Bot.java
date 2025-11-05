@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.mendex.discord.commands.ComponentV2Command;
 import net.mendex.discord.commands.ModalCommand;
 import net.mendex.discord.commands.TestCommand;
 import net.mendex.discord.commands.utils.CommandManager;
@@ -14,7 +15,8 @@ public class Bot {
     void main() {
         CommandManager.addCommands(
                 new TestCommand(),
-                new ModalCommand()
+                new ModalCommand(),
+                new ComponentV2Command()
         );
 
         ListenerManager.addListeners(
