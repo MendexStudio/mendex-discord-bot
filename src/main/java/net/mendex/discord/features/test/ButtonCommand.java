@@ -47,16 +47,8 @@ public class ButtonCommand extends ListenerAdapter implements CommandInterface {
         );
 
         switch (event.getComponentId()) {
-            case "hello-button-1": {
-                event.editComponents(
-                        firstClickMessage
-                ).useComponentsV2().queue();
-            }
-            case "hello-button-2": {
-                event.editComponents(
-                        secondsClickMessage
-                ).useComponentsV2().queue();
-            }
+            case "hello-button-1": event.editComponents(firstClickMessage).useComponentsV2().queue();
+            case "hello-button-2": event.editComponents(secondsClickMessage).useComponentsV2().queue();
         }
     }
 }
