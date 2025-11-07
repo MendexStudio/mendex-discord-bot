@@ -4,17 +4,17 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.mendex.discord.commands.ComponentV2Command;
-import net.mendex.discord.commands.ModalCommand;
-import net.mendex.discord.commands.TestCommand;
-import net.mendex.discord.commands.utils.CommandManager;
-import net.mendex.discord.listeners.utils.ListenerManager;
+import net.mendex.discord.features.componentV2.ComponentV2Command;
+import net.mendex.discord.features.modal.ModalCommand;
+import net.mendex.discord.features.test.ButtonCommand;
+import net.mendex.discord.utils.commands.CommandManager;
+import net.mendex.discord.utils.listeners.ListenerManager;
 
 public class Bot {
 
     void main() {
         CommandManager.addCommands(
-                new TestCommand(),
+                new ButtonCommand(),
                 new ModalCommand(),
                 new ComponentV2Command()
         );

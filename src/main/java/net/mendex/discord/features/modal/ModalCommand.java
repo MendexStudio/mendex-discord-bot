@@ -1,10 +1,12 @@
-package net.mendex.discord.commands;
+package net.mendex.discord.features.modal;
 
+import net.dv8tion.jda.api.components.MessageTopLevelComponent;
 import net.dv8tion.jda.api.components.attachmentupload.AttachmentUpload;
 import net.dv8tion.jda.api.components.container.Container;
 import net.dv8tion.jda.api.components.label.Label;
 import net.dv8tion.jda.api.components.mediagallery.MediaGallery;
 import net.dv8tion.jda.api.components.mediagallery.MediaGalleryItem;
+import net.dv8tion.jda.api.components.separator.Separator;
 import net.dv8tion.jda.api.components.textdisplay.TextDisplay;
 import net.dv8tion.jda.api.components.textinput.TextInput;
 import net.dv8tion.jda.api.components.textinput.TextInputStyle;
@@ -13,15 +15,18 @@ import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.modals.Modal;
-import net.mendex.discord.commands.utils.CommandInterface;
+import net.mendex.discord.utils.commands.CommandInterface;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ModalCommand extends ListenerAdapter implements CommandInterface {
     @Override
     public String getCommandName() {
-        return "modal-command";
+        return "modal";
     }
 
     @Override
@@ -40,7 +45,10 @@ public class ModalCommand extends ListenerAdapter implements CommandInterface {
                                 Label.of("Описание проблемы", TextInput.of("description", TextInputStyle.PARAGRAPH)),
                                 Label.of("Дополнительные файлы", AttachmentUpload.of("files"))
                         ).build();
-        event.replyModal(modal).queue();
+
+        event.replyModal(
+                modal
+        ).queue();
     }
 
     @Override
@@ -48,17 +56,22 @@ public class ModalCommand extends ListenerAdapter implements CommandInterface {
         if (!event.getModalId().equals("modal")) return;
 
         String description = event.getValue("description").getAsString();
+
         List<Message.Attachment> attachments = event.getValue("files").getAsAttachmentList();
         List<MediaGalleryItem> gallery = attachments.stream()
                 .map(attach -> MediaGalleryItem.fromUrl(attach.getUrl()))
                 .collect(Collectors.toList());
 
+        MessageTopLevelComponent messageComponent = Container.of(
+                TextDisplay.of("# Новый баг репорт от " + event.getUser().getAsMention() + "!"),
+                TextDisplay.of(Date.from(Instant.now()).toString()),
+                Separator.create(true, Separator.Spacing.LARGE),
+                TextDisplay.of(description),
+                MediaGallery.of(gallery)
+        );
+
         event.replyComponents(
-                Container.of(
-                        TextDisplay.of("# Новый баг репорт!"),
-                        TextDisplay.of(description),
-                        MediaGallery.of(gallery)
-                )
+                messageComponent
         ).useComponentsV2().queue();
     }
 }

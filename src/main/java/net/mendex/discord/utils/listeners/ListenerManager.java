@@ -1,4 +1,4 @@
-package net.mendex.discord.listeners.utils;
+package net.mendex.discord.utils.listeners;
 
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
