@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.mendex.discord.features.componentV2.ComponentV2Command;
 import net.mendex.discord.features.modal.ModalCommand;
-import net.mendex.discord.features.test.ButtonCommand;
+import net.mendex.discord.features.button.ButtonCommand;
 import net.mendex.discord.utils.commands.CommandManager;
 import net.mendex.discord.utils.listeners.ListenerManager;
 

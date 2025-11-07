@@ -1,4 +1,4 @@
-package net.mendex.discord.features.test;
+package net.mendex.discord.features.button;
 
 import net.dv8tion.jda.api.components.MessageTopLevelComponent;
 import net.dv8tion.jda.api.components.buttons.ButtonStyle;
