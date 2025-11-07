@@ -39,7 +39,7 @@ public class ButtonCommand extends ListenerAdapter implements CommandInterface {
                         ButtonStyle.PRIMARY,
                         "hello-button-2",
                         "Да",
-                        "ЕБАТЬ, ТЫ РАЗГОВАРИВАЕШЬ?"
+                        "ТИ РАЗГАВАРИВАИЩЬ???"
                 )
         );
         MessageTopLevelComponent secondsClickMessage = Container.of(
